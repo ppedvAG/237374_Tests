@@ -2,6 +2,13 @@
 {
     public class OpeningHours
     {
+        public bool IsWeekend()
+        {
+            return DateTime.Now.DayOfWeek == DayOfWeek.Saturday ||
+                   DateTime.Now.DayOfWeek == DayOfWeek.Sunday;
+        }
+
+
         // Example opening hours: 10:30 to 19:00 on weekdays, 10:30 to 14:00 on Saturdays, closed on Sundays
         public bool IsOpen(DateTime dateTime)
         {
