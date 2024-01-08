@@ -11,6 +11,8 @@
         [InlineData(2024, 1, 9, 12, 00, true)] //di
         [InlineData(2024, 1, 13, 10, 30, true)] //sa
         [InlineData(2024, 1, 13, 14, 0, false)] //sa
+        [InlineData(2024, 1, 13, 12, 0, true)] //sa
+        [InlineData(2024, 1, 13, 9, 0, false)] //sa
         [InlineData(2024, 1, 14, 12, 0, false)] //so
         public void OpeningHours_IsOpen(int y, int M, int d, int h, int m, bool result)
         {

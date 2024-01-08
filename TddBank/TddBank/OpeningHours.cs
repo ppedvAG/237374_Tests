@@ -8,6 +8,10 @@
             DayOfWeek day = dateTime.DayOfWeek;
             TimeSpan time = dateTime.TimeOfDay;
 
+
+            if (dateTime.Day == 24 && dateTime.Month == 12)
+                return false;
+
             if (day == DayOfWeek.Sunday)
             {
                 return false;
@@ -22,7 +26,4 @@
             }
         }
     }
-
-
-
 }
