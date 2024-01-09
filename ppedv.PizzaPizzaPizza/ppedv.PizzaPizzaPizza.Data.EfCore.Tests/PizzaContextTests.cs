@@ -1,4 +1,8 @@
+using AutoFixture;
+using AutoFixture.Kernel;
+using FluentAssertions;
 using ppedv.PizzaPizzaPizza.Model;
+using System.Reflection;
 
 namespace ppedv.PizzaPizzaPizza.Data.EfCore.Tests
 {
@@ -15,7 +19,7 @@ namespace ppedv.PizzaPizzaPizza.Data.EfCore.Tests
 
             var result = con.Database.EnsureCreated();
 
-            Assert.True(result);
+            result.Should().BeTrue();
             con.Database.EnsureDeleted();
         }
 
@@ -29,7 +33,7 @@ namespace ppedv.PizzaPizzaPizza.Data.EfCore.Tests
             con.Add(pizza);
             var rows = con.SaveChanges();
 
-            Assert.Equal(1, rows);
+            rows.Should().Be(1);
         }
 
         [Fact]
@@ -46,7 +50,9 @@ namespace ppedv.PizzaPizzaPizza.Data.EfCore.Tests
             using (var con = new PizzaContext(conString))
             {
                 var loaded = con.Pizzas.Find(pizza.Id);
-                Assert.Equal(pizza.Name, loaded.Name);
+
+                loaded.Should().NotBeNull();
+                loaded?.Name.Should().Be(pizza.Name);
             }
         }
 
@@ -67,13 +73,14 @@ namespace ppedv.PizzaPizzaPizza.Data.EfCore.Tests
                 var loaded = con.Pizzas.Find(pizza.Id);
                 loaded.Name = newName;
                 var rows = con.SaveChanges();
-                Assert.Equal(1, rows);
+                rows.Should().Be(1);
             }
 
             using (var con = new PizzaContext(conString))
             {
                 var loaded = con.Pizzas.Find(pizza.Id);
-                Assert.Equal(newName, loaded.Name);
+                loaded.Should().NotBeNull();
+                loaded?.Name.Should().Be(newName);
             }
         }
 
@@ -93,13 +100,49 @@ namespace ppedv.PizzaPizzaPizza.Data.EfCore.Tests
                 var loaded = con.Pizzas.Find(pizza.Id);
                 con.Remove(loaded);
                 var rows = con.SaveChanges();
-                Assert.Equal(1, rows);
+                rows.Should().Be(1);
             }
 
             using (var con = new PizzaContext(conString))
             {
                 var loaded = con.Pizzas.Find(pizza.Id);
-                Assert.Null(loaded);
+                loaded.Should().BeNull();
+            }
+        }
+
+
+        [Fact]
+        public void Can_create_and_read_Pizza_with_AutoFixture()
+        {
+            var fix = new Fixture();
+            fix.Behaviors.Add(new OmitOnRecursionBehavior());
+            fix.Customizations.Add(new PropertyNameOmitter(nameof(Entity.Id)));
+            var p = fix.Create<Pizza>();
+
+            using (var con = new PizzaContext(conString))
+            {
+                con.Database.EnsureCreated();
+                con.Add(p);
+                con.SaveChanges().Should().BeGreaterThan(1);
+            }
+        }
+
+        internal class PropertyNameOmitter : ISpecimenBuilder
+        {
+            private readonly IEnumerable<string> names;
+
+            internal PropertyNameOmitter(params string[] names)
+            {
+                this.names = names;
+            }
+
+            public object Create(object request, ISpecimenContext context)
+            {
+                var propInfo = request as PropertyInfo;
+                if (propInfo != null && names.Contains(propInfo.Name))
+                    return new OmitSpecimen();
+
+                return new NoSpecimen();
             }
         }
     }
