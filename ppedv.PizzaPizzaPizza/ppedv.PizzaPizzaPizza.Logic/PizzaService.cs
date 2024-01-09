@@ -11,9 +11,13 @@ namespace ppedv.PizzaPizzaPizza.Logic
             this.repo = repo;
         }
 
-        public Pizza GetPizzaWithMostKCal()
+        public Pizza? GetPizzaWithMostKCal()
         {
-            return repo.GetAll<Pizza>().OrderBy(x => CalcKCal(x)).FirstOrDefault();
+            return repo.GetAll<Pizza>().Where(x => x.Belaege.Any())
+                                       .OrderByDescending(x => CalcKCal(x))
+                                       .ThenBy(x => x.Belaege.Count())
+                                       .ThenBy(x => x.Name)
+                                       .FirstOrDefault();
         }
 
         public int CalcKCal(Pizza pizza)

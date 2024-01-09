@@ -1,14 +1,14 @@
 using FluentAssertions;
 using ppedv.PizzaPizzaPizza.Model;
 
-namespace ppedv.PizzaPizzaPizza.Logic.Tests
+namespace ppedv.PizzaPizzaPizza.Logic.Tests.PizzaServiceTests
 {
-    public class PizzaServiceTests
+    public class CalcKCalTests
     {
         [Fact]
         public void CalcKCal_pizza_null_throws_ArgumentNullEx()
         {
-            var ps = new PizzaService();
+            var ps = new PizzaService(null);
 
             var act = () => ps.CalcKCal(null!);
 
@@ -18,7 +18,7 @@ namespace ppedv.PizzaPizzaPizza.Logic.Tests
         [Fact]
         public void CalcKCal_pizza_with_no_Belaege_returns_0()
         {
-            var ps = new PizzaService();
+            var ps = new PizzaService(null);
             var p = new Pizza();
 
             var result = ps.CalcKCal(p);
@@ -29,7 +29,7 @@ namespace ppedv.PizzaPizzaPizza.Logic.Tests
         [Fact]
         public void CalcKCal_pizza_with_1_Belaege_returns_12()
         {
-            var ps = new PizzaService();
+            var ps = new PizzaService(null);
             var p = new Pizza();
             p.Belaege.Add(new Belag() { KCal = 12 });
 
@@ -41,7 +41,7 @@ namespace ppedv.PizzaPizzaPizza.Logic.Tests
         [Fact]
         public void CalcKCal_pizza_with_2_Belaege_returns_50()
         {
-            var ps = new PizzaService();
+            var ps = new PizzaService(null);
             var p = new Pizza();
             p.Belaege.Add(new Belag() { KCal = 12 });
             p.Belaege.Add(new Belag() { KCal = 38 });
