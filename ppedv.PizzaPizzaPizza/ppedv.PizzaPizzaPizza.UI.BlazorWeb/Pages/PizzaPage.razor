@@ -1,0 +1,42 @@
+﻿@page "/pizza"
+@using ppedv.PizzaPizzaPizza.Model;
+@using ppedv.PizzaPizzaPizza.Model.Contracts;
+@inject IRepository repo;
+
+<h3>Pizza</h3>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Preis</th>
+            <th>KCal</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Pizza p in pizzas)
+        {
+            <tr>
+                <td>@p.Id</td>
+                <td>@p.Name</td>
+                <td>@p.Preis</td>
+                <td>666</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code {
+    private List<Pizza> pizzas;
+
+    protected override void OnInitialized()
+    {
+        // pizzas = new List<Pizza>();
+        // pizzas.Add(new Pizza() { Name = "Pizza Salami" });
+        // pizzas.Add(new Pizza() { Name = "Pizza Extra Käse" });
+        // pizzas.Add(new Pizza() { Name = "Pizza Hawaii" });
+
+        pizzas = repo.GetAll<Pizza>().ToList();
+    }
+}
