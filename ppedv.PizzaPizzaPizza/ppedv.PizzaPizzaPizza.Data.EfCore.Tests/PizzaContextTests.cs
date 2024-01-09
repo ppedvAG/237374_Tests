@@ -123,7 +123,13 @@ namespace ppedv.PizzaPizzaPizza.Data.EfCore.Tests
             {
                 con.Database.EnsureCreated();
                 con.Add(p);
-                con.SaveChanges().Should().BeGreaterThan(1);
+                con.SaveChanges().Should().BeGreaterThan(6);
+            }
+            using (var con = new PizzaContext(conString))
+            {
+                var loaded = con.Pizzas.Find(p.Id);
+
+                loaded.Should().BeEquivalentTo(p, x => x.IgnoringCyclicReferences());
             }
         }
 
