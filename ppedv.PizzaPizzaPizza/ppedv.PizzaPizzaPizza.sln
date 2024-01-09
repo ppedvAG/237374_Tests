@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ppedv.PizzaPizzaPizza.Model
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ppedv.PizzaPizzaPizza.Data.EfCore", "ppedv.PizzaPizzaPizza.Data.EfCore\ppedv.PizzaPizzaPizza.Data.EfCore.csproj", "{9E7FB9DA-207C-4951-9A76-2F2DE44D9A1C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ppedv.PizzaPizzaPizza.Data.EfCore.Tests", "ppedv.PizzaPizzaPizza.Data.EfCore.Tests\ppedv.PizzaPizzaPizza.Data.EfCore.Tests.csproj", "{C6F061B8-184A-4BB6-BA15-9E1B50DF09D8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{9E7FB9DA-207C-4951-9A76-2F2DE44D9A1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9E7FB9DA-207C-4951-9A76-2F2DE44D9A1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9E7FB9DA-207C-4951-9A76-2F2DE44D9A1C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6F061B8-184A-4BB6-BA15-9E1B50DF09D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6F061B8-184A-4BB6-BA15-9E1B50DF09D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6F061B8-184A-4BB6-BA15-9E1B50DF09D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6F061B8-184A-4BB6-BA15-9E1B50DF09D8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
